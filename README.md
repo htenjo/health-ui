@@ -12,6 +12,7 @@ Health Analytics uses a number of open source projects to work properly:
 * [node.js] - Just required by Angular.
 * [Spring Boot] - To configure the backend services
 * [MongoDB] - NoSQL database. 
+
 ###### Subprojects
 * health_core: Backend services in Java, Spring and MongoDB
 * health_ui: Frontend services in Angular.
