@@ -1,0 +1,17 @@
+package co.zero.health.model;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+/**
+ * Created by hernan on 6/30/17.
+ */
+@Getter
+@Setter
+@ToString
+public class Survey {
+    private String jsSurvey;
+    private String surveyAnswers;
+    private boolean solved;
+}
