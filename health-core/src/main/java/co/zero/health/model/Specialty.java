@@ -18,7 +18,7 @@ import java.util.List;
 public class Specialty {
     private String id;
     private String name;
-    @DBRef(lazy = true)
+    @DBRef//(lazy = true)
     private Client client;
     private List<SurveyTemplate> surveys;
 }

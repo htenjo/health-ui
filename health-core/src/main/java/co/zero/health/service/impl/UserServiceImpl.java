@@ -1,7 +1,8 @@
-package co.zero.health.service;
+package co.zero.health.service.impl;
 
 import co.zero.health.model.User;
 import co.zero.health.persistence.UserRepository;
+import co.zero.health.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

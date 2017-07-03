@@ -1,5 +1,6 @@
 package co.zero.health.web;
 
+import co.zero.health.common.Constant;
 import co.zero.health.model.User;
 import co.zero.health.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/user")
+@SuppressWarnings(Constant.WARNING_UNUSED)
 public class UserController {
     @Autowired
     private UserService userService;
