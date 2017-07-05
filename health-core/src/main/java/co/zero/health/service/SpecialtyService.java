@@ -1,6 +1,7 @@
 package co.zero.health.service;
 
 import co.zero.health.model.Specialty;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

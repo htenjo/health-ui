@@ -31,12 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByUsername(String username) {
         User user = userRepository.findByUsername(username);
-
-        if (user != null) {
-            return Optional.of(user);
-        } else {
-            return Optional.empty();
-        }
+        return Optional.ofNullable(user);
     }
 
     @Override
