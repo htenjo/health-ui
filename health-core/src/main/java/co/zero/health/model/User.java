@@ -24,6 +24,7 @@ public class User {
     //Maybe: Admin, Consultor, Viewer, SuperAdmin
     private String[] roles;
     private boolean enabled;
-    @DBRef(lazy = true)
-    private Client client;
+    //Lazy is not working for now
+    @DBRef//(lazy = true)
+    private Company company;
 }

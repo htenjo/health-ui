@@ -13,5 +13,5 @@ public interface SpecialtyService {
 
     void delete(String specialtyId);
 
-    List<Specialty> findAllByClientId(String clientId);
+    List<Specialty> findAllByCompanyId(String companyId);
 }

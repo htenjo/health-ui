@@ -20,15 +20,21 @@ public class SpecialtyController {
     @Autowired
     private SpecialtyService specialtyService;
 
-    @RequestMapping(value = "/client/{clientId}", method = RequestMethod.GET)
-    public ResponseEntity<List<Specialty>> findAllByClientId(@PathVariable("clientId") String clientId){
-        List<Specialty> specialties = specialtyService.findAllByClientId(clientId);
+    @RequestMapping(value = "/company/{companyId}", method = RequestMethod.GET)
+    public ResponseEntity<List<Specialty>> findAllByClientId(@PathVariable("companyId") String companyId){
+        List<Specialty> specialties = specialtyService.findAllByCompanyId(companyId);
         return new ResponseEntity<>(specialties, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Specialty> saveSpecialty(@RequestBody Specialty specialty){
+    public ResponseEntity<Specialty> save(@RequestBody Specialty specialty){
         Specialty persistedSpecialty = specialtyService.save(specialty);
         return new ResponseEntity<>(persistedSpecialty, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{specialtyId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Specialty> delete(@PathVariable("specialtyId") String specialtyId) {
+        specialtyService.delete(specialtyId);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

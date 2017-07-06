@@ -1,6 +1,5 @@
 package co.zero.health.service.impl;
 
-import co.zero.health.common.Constant;
 import co.zero.health.model.Specialty;
 import co.zero.health.persistence.SpecialtyRepository;
 import co.zero.health.service.SpecialtyService;
@@ -28,7 +27,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     }
 
     @Override
-    public List<Specialty> findAllByClientId(String clientId) {
-        return specialtyRepository.findAllByClientId(clientId);
+    public List<Specialty> findAllByCompanyId(String companyId) {
+        return specialtyRepository.findAllByCompanyId(companyId);
     }
 }

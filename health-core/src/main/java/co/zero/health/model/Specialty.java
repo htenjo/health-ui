@@ -1,5 +1,6 @@
 package co.zero.health.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,7 +19,7 @@ import java.util.List;
 public class Specialty {
     private String id;
     private String name;
-    @DBRef//(lazy = true)
-    private Client client;
+    @DBRef(lazy = true)
+    private Company company;
     private List<SurveyTemplate> surveys;
 }

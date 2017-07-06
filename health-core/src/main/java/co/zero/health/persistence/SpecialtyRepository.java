@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface SpecialtyRepository extends MongoRepository<Specialty, String> {
-    List<Specialty> findAllByClientId(String clientId);
+    List<Specialty> findAllByCompanyId(String companyId);
 }

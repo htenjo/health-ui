@@ -20,5 +20,5 @@ public class Patient {
     private List<Survey> basicInfo;
     private List<Event> events;
     @DBRef(lazy = true)
-    private Client client;
+    private Company company;
 }

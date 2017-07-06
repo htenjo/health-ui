@@ -21,14 +21,14 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public ResponseEntity<User> findUser(@PathVariable("username") String username){
+    public ResponseEntity<User> find(@PathVariable("username") String username){
         return  userService.findByUsername(username)
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> saveUser(@RequestBody User user){
+    public ResponseEntity<User> save(@RequestBody User user){
         User persistedUser = userService.save(user);
         return new ResponseEntity<>(persistedUser, HttpStatus.CREATED);
     }
