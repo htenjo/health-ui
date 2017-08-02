@@ -22,7 +22,27 @@ html, body {
 	float: right;
 	margin-bottom: 10px;
 }
+.list_filtered {
+	display: table;
+}
 
+.form_filtered {
+	display: none;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px; 
+    display: inline-block;
+ }
+
+ .circle.red {
+ 	background-color: red;
+ }
+ .circle.green {
+ 	background-color: green;
+ }
 /** ========================== CRUD CSS - END ==================== */ 
 
 
@@ -103,7 +123,5 @@ html, body {
 	font-size: 1.5em;
 	color: red;
 }
-.pages-list ul {
-	list-style: none;
-}
+
 /** ========================== END - INDEX CSS - NOT REQUIRED FOR APP ==================== */ 
