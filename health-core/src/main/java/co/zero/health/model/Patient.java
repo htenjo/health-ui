@@ -17,6 +17,10 @@ import java.util.List;
 @Document
 public class Patient {
     private String id;
+    private String firstName;
+    private String lastName;
+    private String nuip;
+
     private List<Survey> basicInfo;
     private List<Event> events;
     @DBRef(lazy = true)

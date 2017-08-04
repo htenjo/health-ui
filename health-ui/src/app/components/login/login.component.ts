@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(){
+    /*
     this.userService.findUserByUsername(this.username)
     .subscribe(
       (user : User) => {
@@ -27,5 +28,6 @@ export class LoginComponent implements OnInit {
         console.log(error);
       }
     );
+    */
   }
 }
