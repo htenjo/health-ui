@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
-  constructor(private http: Http) { }
+  ENDPOINT_URL:string = "http://localhost:8080/user/";
 
-  /*
+  constructor(private authHttp: AuthHttp) { }
+  
   findUserByUsername(username: string) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-
-    return this.http.get(ENDPOINT_URL, { headers: headers })
+    return this.authHttp.get(this.ENDPOINT_URL + username)
       .map(
         (response: Response) => {
           const data = response.json();
@@ -17,5 +18,4 @@ export class UserService {
         }
       );
   }
-  */
 }
