@@ -3,9 +3,14 @@ package co.zero.health.service.impl;
 import co.zero.health.model.Company;
 import co.zero.health.persistence.CompanyRepository;
 import co.zero.health.service.CompanyService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +18,7 @@ import java.util.Optional;
  * Created by hernan on 7/4/17.
  */
 @Service
+@Slf4j
 public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
@@ -23,12 +29,16 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void delete(String companyId) {
-        companyRepository.delete(companyId);
+    public void delete(Long companyId) {
+        try {
+            companyRepository.delete(companyId);
+        }catch (EmptyResultDataAccessException e) {
+            log.warn(e.getMessage());
+        }
     }
 
     @Override
-    public Optional<Company> find(String companyId) {
+    public Optional<Company> find(Long companyId) {
         return Optional.ofNullable(companyRepository.findOne(companyId));
     }
 

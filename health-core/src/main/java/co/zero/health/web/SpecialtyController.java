@@ -14,14 +14,17 @@ import java.util.List;
  * Created by hernan on 7/2/17.
  */
 @RestController
-@RequestMapping("/specialty")
+@RequestMapping(value = "/specialty"
+        , consumes = Constant.CONTENT_TYPE_JSON
+        , produces = Constant.CONTENT_TYPE_JSON
+)
 @SuppressWarnings(Constant.WARNING_UNUSED)
 public class SpecialtyController {
     @Autowired
     private SpecialtyService specialtyService;
 
     @RequestMapping(value = "/company/{companyId}", method = RequestMethod.GET)
-    public ResponseEntity<List<Specialty>> findAllByClientId(@PathVariable("companyId") String companyId){
+    public ResponseEntity<List<Specialty>> findAllByClientId(@PathVariable("companyId") Long companyId){
         List<Specialty> specialties = specialtyService.findAllByCompanyId(companyId);
         return new ResponseEntity<>(specialties, HttpStatus.OK);
     }
@@ -33,7 +36,7 @@ public class SpecialtyController {
     }
 
     @RequestMapping(value = "/{specialtyId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Specialty> delete(@PathVariable("specialtyId") String specialtyId) {
+    public ResponseEntity<Specialty> delete(@PathVariable("specialtyId") Long specialtyId) {
         specialtyService.delete(specialtyId);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

@@ -16,6 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 @SuppressWarnings(Constant.WARNING_UNUSED)
+@Deprecated
 public class UserController {
     @Autowired
     private UserService userService;
@@ -25,11 +26,5 @@ public class UserController {
         return  userService.findByUsername(username)
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> save(@RequestBody User user){
-        User persistedUser = userService.save(user);
-        return new ResponseEntity<>(persistedUser, HttpStatus.CREATED);
     }
 }

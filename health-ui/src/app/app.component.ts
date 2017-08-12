@@ -14,10 +14,4 @@ export class AppComponent {
   constructor(public auth: AuthService, public userService: UserService) {
     auth.handleAuthentication();
   }
-
-  printUserInfo(){
-    this.userService.findUserByUsername('hernan').subscribe(
-      data => console.log(data)
-    );
-  }
 }

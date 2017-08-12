@@ -5,4 +5,6 @@ package co.zero.health.common;
  */
 public final class Constant {
     public static final String WARNING_UNUSED = "unused";
+
+    public static final String CONTENT_TYPE_JSON = "application/json";
 }

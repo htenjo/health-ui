@@ -8,8 +8,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 
 /**
@@ -18,13 +18,12 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-@Document
-public class Company {
-    private String id;
+@Entity
+public class Company extends AbstractEntity {
     private String name;
 
-    //@JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using =  LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate createdDate;
 }

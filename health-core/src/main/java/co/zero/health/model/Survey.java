@@ -4,13 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Entity;
+
 /**
  * Created by hernan on 6/30/17.
  */
 @Getter
 @Setter
 @ToString
-public class Survey {
+@Entity
+public class Survey extends AbstractEntity {
     private String jsSurvey;
     private String surveyAnswers;
     private boolean solved;

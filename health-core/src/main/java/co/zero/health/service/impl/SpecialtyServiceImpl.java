@@ -22,12 +22,12 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     }
 
     @Override
-    public void delete(String specialtyId) {
+    public void delete(Long specialtyId) {
         specialtyRepository.delete(specialtyId);
     }
 
     @Override
-    public List<Specialty> findAllByCompanyId(String companyId) {
+    public List<Specialty> findAllByCompanyId(Long companyId) {
         return specialtyRepository.findAllByCompanyId(companyId);
     }
 }

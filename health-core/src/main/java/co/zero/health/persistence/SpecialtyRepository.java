@@ -1,11 +1,12 @@
 package co.zero.health.persistence;
 
 import co.zero.health.model.Specialty;
-import co.zero.health.model.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface SpecialtyRepository extends MongoRepository<Specialty, String> {
-    List<Specialty> findAllByCompanyId(String companyId);
+@Repository
+public interface SpecialtyRepository extends PagingAndSortingRepository<Specialty, Long> {
+    List<Specialty> findAllByCompanyId(Long companyId);
 }

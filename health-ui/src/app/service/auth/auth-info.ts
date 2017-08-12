@@ -13,5 +13,5 @@ export const AUTH_CONFIG: AuthConfig = {
   domain: 'zerovirus23.auth0.com',
   callbackURL: 'http://localhost:4200/callback',
   apiUrl: 'http://localhost:8080',
-  scopes: "create:user read:user update:user delete:user read:company"
+  scopes: "ADMIN VIEWER CONSULTANT OTHER"
 };

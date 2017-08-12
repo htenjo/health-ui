@@ -11,7 +11,7 @@ import java.util.List;
 public interface SpecialtyService {
     Specialty save(Specialty specialty);
 
-    void delete(String specialtyId);
+    void delete(Long specialtyId);
 
-    List<Specialty> findAllByCompanyId(String companyId);
+    List<Specialty> findAllByCompanyId(Long companyId);
 }

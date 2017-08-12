@@ -1,8 +1,7 @@
 package co.zero.health.service;
 
 import co.zero.health.model.Company;
-import co.zero.health.model.Company;
-import co.zero.health.model.Specialty;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,14 +21,14 @@ public interface CompanyService {
      *
      * @param companyId
      */
-    void delete(String companyId);
+    void delete(Long companyId);
 
     /**
      *
      * @param companyId
      * @return
      */
-    Optional<Company> find(String companyId);
+    Optional<Company> find(Long companyId);
 
     /**
      *

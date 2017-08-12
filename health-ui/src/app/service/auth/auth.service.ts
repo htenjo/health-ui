@@ -24,7 +24,12 @@ export class AuthService {
   /**
    * 
    */
-  constructor(public router: Router) {}
+  constructor(public router: Router) {
+    if (this.isAuthenticated()) {
+    } else {
+      this.logout();
+    }
+  }
 
   /**
    * 
@@ -39,8 +44,9 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        //window.location.hash = '';
+        window.location.hash = '';
         this.setSession(authResult);
+        this.setProfile(authResult);
         this.router.navigate(['/home']);
       } else if (err) {
         this.router.navigate(['/home']);
@@ -48,17 +54,6 @@ export class AuthService {
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
-  }
-
-  /**
-   * 
-   */
-  private setSession(authResult): void {
-    // Set the time that the access token will expire at
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem(ACCESS_TOKEN_NAME, authResult.accessToken);
-    localStorage.setItem(ID_TOKEN_NAME, authResult.idToken);
-    localStorage.setItem(EXPIRE_TOKEN_NAME, expiresAt);
   }
 
   /**
@@ -77,8 +72,7 @@ export class AuthService {
    * 
    */
   public isAuthenticated(): boolean {
-    // Check whether the current time is past the
-    // access token's expiry time
+    // Check whether the current time is past the access token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem(EXPIRE_TOKEN_NAME));
     return new Date().getTime() < expiresAt;
   }
@@ -86,21 +80,26 @@ export class AuthService {
   /**
    * 
    */
-  public getProfile(callback): void {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN_NAME);
-
-    if (!accessToken) {
-      throw new Error('Access token must exist to fetch profile');
-    }
-
-    const self = this;
-    this.auth0.client.userInfo(accessToken, (err, profile) => {
+  private setSession(authResult): void {
+    // Set the time that the access token will expire at
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    localStorage.setItem(ACCESS_TOKEN_NAME, authResult.accessToken);
+    localStorage.setItem(ID_TOKEN_NAME, authResult.idToken);
+    localStorage.setItem(EXPIRE_TOKEN_NAME, expiresAt);
+  }
+  
+  /**
+   * 
+   */
+  private setProfile(authResult) : void {
+    // Use access token to retrieve user's profile and set session
+    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
-        self.userProfile = profile;
+        this.userProfile = profile;
+        console.log("::: UserProfile -> " + this.userProfile);
+      } else if (err) {
+        console.error(`Error authenticating: ${err.error}`);
       }
-      
-      callback(err, profile);
     });
   }
-
 }
