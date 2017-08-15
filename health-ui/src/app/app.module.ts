@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
 
 import { AuthService, ACCESS_TOKEN_NAME } from './service/auth/auth.service';
+import { CompanyService } from './service/company.service';
 
 import { CallbackComponent } from './components/callback/callback.component';
 import { AppComponent } from './app.component';
@@ -54,7 +55,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
-    }
+    },
+    CompanyService
   ],
   bootstrap: [AppComponent]
 })
