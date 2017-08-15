@@ -16,7 +16,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: AUTH_CONFIG.apiUrl,
     redirectUri: AUTH_CONFIG.callbackURL,
-    scope: `openid profile ${AUTH_CONFIG.scopes}`
+    scope: `openid`
   });
   //Object with the user information from Auth0
   userProfile: any;
@@ -25,10 +25,6 @@ export class AuthService {
    * 
    */
   constructor(public router: Router) {
-    if (this.isAuthenticated()) {
-    } else {
-      this.logout();
-    }
   }
 
   /**
@@ -46,12 +42,11 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this.setSession(authResult);
-        this.setProfile(authResult);
+        //this.setProfile(authResult);
         this.router.navigate(['/home']);
       } else if (err) {
         this.router.navigate(['/home']);
         console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
   }

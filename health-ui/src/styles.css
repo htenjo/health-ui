@@ -11,6 +11,35 @@
 
 html, body {
     width: 100%;
-    height: 100%;
+    height: 99%;
     font-size: 14px;
 }
+
+
+/** ========================== CRUD CSS - BEGIN ==================== */ 
+.crud-list > button {
+	float: right;
+	margin-bottom: 10px;
+}
+.list_filtered {
+	display: table;
+}
+
+.form_filtered {
+	display: none;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px; 
+    display: inline-block;
+ }
+
+ .circle.red {
+ 	background-color: red;
+ }
+ .circle.green {
+ 	background-color: green;
+ }
+/** ========================== CRUD CSS - END ==================== */ 
