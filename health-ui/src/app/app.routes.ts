@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { CompanyComponent } from './components/company/company.component';
-import { SpecialtyComponent } from './components/specialty/specialty.component'
-import { CallbackComponent } from './components/callback/callback.component';
+import { HomeComponent } from './home/home.component';
+import { CompanyComponent } from './company/company.component';
+import { SpecialtyComponent } from './specialty/specialty.component'
+import { CallbackComponent } from './shared_components/callback/callback.component';
 
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent },

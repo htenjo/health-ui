@@ -5,4 +5,8 @@ export class Company {
         public createdDate:string,
         public nit:string
     ){}
+
+    static empty() : Company {
+        return new Company(null, '', '', '');
+    }
 }

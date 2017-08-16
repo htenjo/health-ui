@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from './service/auth/auth.service';
-import { HeaderComponent } from './components/commons/header/header.component';
-import { FooterComponent } from './components/commons/footer/footer.component';
+import { AuthService } from './shared_services/auth/auth.service';
+import { HeaderComponent } from './shared_components/header/header.component';
+import { FooterComponent } from './shared_components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
