@@ -20,7 +20,7 @@ export class CompanyComponent implements OnInit {
   }
 
   onSelectDetail(company:Company) : void {
-    this.selectedCompany = company;
+    this.selectedCompany = Company.clone(company);
     this.editMode = true;
   }
 
@@ -30,19 +30,43 @@ export class CompanyComponent implements OnInit {
 
   onSave() : void {
     if (this.editMode) {
-      this.selectedCompany = this.service.update(this.selectedCompany);
+      this.service.update(this.selectedCompany).subscribe(
+        company => {
+          this.selectedCompany = null;
+          this.updateList();
+        },
+        error => console.log("Error updatingCompany ", error)
+      );
     } else {
-      this.selectedCompany = this.service.save(this.selectedCompany);
+      this.service.save(this.selectedCompany).subscribe(
+        company => {
+          this.selectedCompany = company;
+          this.companyList.push(company);
+        },
+        error => console.log("Error savingCompany ", error)
+      );
     }
-    this.updateList();
   }
 
   onDelete(company:Company) :void {
-    this.service.delete(company);
-    this.updateList();
+    this.service.delete(company).subscribe(
+      resp => {
+        if(resp.ok) {
+          this.updateList();
+        }
+      },
+      error => console.log("Error deletingCompany ", error)
+    );
   }
 
   private updateList() : void {
-    this.companyList = this.service.list();
+    this.service.list().subscribe(
+      companies => {
+        this.companyList = companies;
+      },
+      error => {
+        console.log("Error listingCompanies ::: ", error);
+      }
+    );
   }
 }

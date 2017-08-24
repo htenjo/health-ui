@@ -9,4 +9,8 @@ export class Company {
     static empty() : Company {
         return new Company(null, '', '', '');
     }
+
+    static clone(company:Company) : Company {
+        return new Company (company.id, company.name, company.createdDate, company.nit);
+    }
 }
