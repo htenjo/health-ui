@@ -1,8 +1,10 @@
 package co.zero.health.service.impl;
 
+import co.zero.health.model.Company;
 import co.zero.health.model.Specialty;
 import co.zero.health.persistence.SpecialtyRepository;
 import co.zero.health.service.SpecialtyService;
+import co.zero.health.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,10 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     @Override
     public Specialty save(Specialty specialty) {
+        Long companyId = SecurityUtil.getCompanyId();
+        Company company = new Company();
+        company.setId(companyId);
+        specialty.setCompany(company);
         return specialtyRepository.save(specialty);
     }
 

@@ -7,4 +7,6 @@ public final class Constant {
     public static final String WARNING_UNUSED = "unused";
 
     public static final String CONTENT_TYPE_JSON = "application/json";
+
+    public static final String CLAIM_COMPANY_ID = "https://health-app/companyId";
 }

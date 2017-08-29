@@ -20,7 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  */
 @Configuration
 //TODO: Delete this when security configuration works
-@EnableWebSecurity(debug = true)
+//@EnableWebSecurity(debug = true)
 @PropertySources(@PropertySource("classpath:auth0.properties"))
 public class HealthAppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value(value = "${auth0.apiAudience}")

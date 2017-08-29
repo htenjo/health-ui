@@ -10,6 +10,7 @@ import { ROUTES } from './app.routes';
 
 import { AuthService, ACCESS_TOKEN_NAME } from './shared_services/auth/auth.service';
 import { CompanyService } from './company/company.service';
+import { SpecialtyService } from './specialty/specialty.service';
 
 import { CallbackComponent } from './shared_components/callback/callback.component';
 import { AppComponent } from './app.component';
@@ -49,7 +50,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
     },
-    CompanyService
+    CompanyService,
+    SpecialtyService
   ],
   bootstrap: [AppComponent]
 })
