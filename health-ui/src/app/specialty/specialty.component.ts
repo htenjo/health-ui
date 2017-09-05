@@ -1,19 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
+import {AbstractComponent} from '../shared_components/abstractComponent';
 import {Specialty} from './specialty.model';
 import {SpecialtyService} from './specialty.service';
+
+
+import { Observable, Subscription } from 'rxjs/Rx';
  
 @Component({
   selector: 'specialty',
   templateUrl: './specialty.component.html',
   styleUrls: ['./specialty.component.css']
 })
-export class SpecialtyComponent implements OnInit {
+export class SpecialtyComponent extends AbstractComponent {
   private specialtyList:Specialty[];
   private selectedSpecialty:Specialty;
   private editMode:boolean;
 
-  constructor(private service:SpecialtyService) { }
+  constructor(private service:SpecialtyService) { 
+    super();
+  }
 
   ngOnInit() {
     this.updateList();
@@ -30,42 +36,40 @@ export class SpecialtyComponent implements OnInit {
 
   onSave() : void {
     if (this.editMode) {
-      this.service.update(this.selectedSpecialty).subscribe(
+      this.handleRequest(
+        this.service.update(this.selectedSpecialty), 
         specialty => {
           this.selectedSpecialty = null;
           this.updateList();
-        },
-        error => console.log("Error updatingSpecialty ", error)
+        }
       );
     } else {
-      this.service.save(this.selectedSpecialty).subscribe(
+      this.handleRequest(
+        this.service.save(this.selectedSpecialty),
         specialty => {
           this.selectedSpecialty = specialty;
           this.specialtyList.push(specialty);
-        },
-        error => console.log("Error savingSpecialty ", error)
+        }
       );
     }
   }
 
   onDelete(specialty:Specialty) :void {
-    this.service.delete(specialty).subscribe(
+    this.handleRequest(
+      this.service.delete(specialty),
       resp => {
         if(resp.ok) {
           this.updateList();
         }
-      },
-      error => console.log("Error deletingSpecialty ", error)
+      }
     );
   }
 
   private updateList() : void {
-    this.service.list().subscribe(
+    this.handleRequest(
+      this.service.list(),
       specialties => {
         this.specialtyList = specialties;
-      },
-      error => {
-        console.log("Error listing Specialties ::: ", error);
       }
     );
   }

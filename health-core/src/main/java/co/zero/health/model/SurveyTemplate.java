@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 @ToString
 @Entity
 public class SurveyTemplate extends AbstractEntity {
+    private String name;
     private String jsSurvey;
     @Enumerated(EnumType.STRING)
     private SurveyType type;

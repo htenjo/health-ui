@@ -37,24 +37,24 @@ public class HealthAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 .antMatchers(HttpMethod.GET, "/company/**").hasAuthority("read:company")
-                .antMatchers(HttpMethod.POST, "/company/**").hasAuthority("create:company")
+                .antMatchers(HttpMethod.POST, "/company/*").hasAuthority("create:company")
                 .antMatchers(HttpMethod.PUT, "/company/**").hasAuthority("update:company")
                 .antMatchers(HttpMethod.DELETE, "/company/**").hasAuthority("delete:company")
 
-                .antMatchers(HttpMethod.GET, "/specialty/**").hasAuthority("read:specialty")
-                .antMatchers(HttpMethod.POST, "/specialty/**").hasAuthority("create:specialty")
-                .antMatchers(HttpMethod.PUT, "/specialty/**").hasAuthority("update:specialty")
-                .antMatchers(HttpMethod.DELETE, "/specialty/**").hasAuthority("delete:specialty")
+                .antMatchers(HttpMethod.GET, "/specialty/*").hasAuthority("read:specialty")
+                .antMatchers(HttpMethod.POST, "/specialty/*").hasAuthority("create:specialty")
+                .antMatchers(HttpMethod.PUT, "/specialty/*").hasAuthority("update:specialty")
+                .antMatchers(HttpMethod.DELETE, "/specialty/*").hasAuthority("delete:specialty")
 
                 .antMatchers(HttpMethod.GET, "/patient/**").hasAuthority("read:patient")
                 .antMatchers(HttpMethod.POST, "/patient/**").hasAuthority("create:patient")
                 .antMatchers(HttpMethod.PUT, "/patient/**").hasAuthority("update:patient")
                 .antMatchers(HttpMethod.DELETE, "/patient/**").hasAuthority("delete:patient")
 
-                .antMatchers(HttpMethod.GET, "/surveyTemplate/**").hasAuthority("read:surveyTemplate")
-                .antMatchers(HttpMethod.POST, "/surveyTemplate/**").hasAuthority("create:surveyTemplate")
-                .antMatchers(HttpMethod.PUT, "/surveyTemplate/**").hasAuthority("update:surveyTemplate")
-                .antMatchers(HttpMethod.DELETE, "/surveyTemplate/**").hasAuthority("delete:surveyTemplate")
+                .antMatchers(HttpMethod.GET, "/specialty/*/surveyTemplate/**").hasAuthority("read:surveyTemplate")
+                .antMatchers(HttpMethod.POST, "/specialty/*/surveyTemplate/**").hasAuthority("create:surveyTemplate")
+                .antMatchers(HttpMethod.PUT, "/specialty/*/surveyTemplate/**").hasAuthority("update:surveyTemplate")
+                .antMatchers(HttpMethod.DELETE, "/specialty/*/surveyTemplate/**").hasAuthority("delete:surveyTemplate")
 
                 //Any other resource just need to be authenticated
                 .anyRequest().authenticated();

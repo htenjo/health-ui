@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by hernan on 7/2/17.
@@ -25,6 +26,11 @@ public class SpecialtyServiceImpl implements SpecialtyService {
         company.setId(companyId);
         specialty.setCompany(company);
         return specialtyRepository.save(specialty);
+    }
+
+    @Override
+    public Optional<Specialty> find(Long specialtyId) {
+        return Optional.ofNullable(specialtyRepository.findOne(specialtyId));
     }
 
     @Override
