@@ -20,7 +20,7 @@ export class CompanyComponent implements OnInit {
   }
 
   onSelectDetail(company:Company) : void {
-    this.selectedCompany = Company.clone(company);
+    this.selectedCompany = {...company};
     this.editMode = true;
   }
 

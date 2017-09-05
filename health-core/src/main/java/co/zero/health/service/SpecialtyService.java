@@ -8,10 +8,6 @@ import java.util.List;
 /**
  * Created by hernan on 7/2/17.
  */
-public interface SpecialtyService {
-    Specialty save(Specialty specialty);
-
-    void delete(Long specialtyId);
-
+public interface SpecialtyService extends GenericCrud<Specialty>{
     List<Specialty> findAllByCompanyId(Long companyId);
 }

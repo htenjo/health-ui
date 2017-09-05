@@ -17,7 +17,7 @@
             <td>{{specialty.id}}</td>
             <td>{{specialty.name}}</td>
             <td>
-              <a class="btn btn-primary btn-xs" href="survey.html">
+              <a class="btn btn-primary btn-xs" [routerLink]="['/specialty', specialty.id, 'survey-template']">
                 <i class="fa fa-pencil" aria-hidden="true"></i> Surveys
               </a>
               <a class="btn btn-primary btn-xs" href="survey.html">

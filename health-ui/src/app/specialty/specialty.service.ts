@@ -34,11 +34,24 @@ export class SpecialtyService {
       .map(resp => <Specialty>resp.json());
   }
 
+
+  find(specialtyId:number) : Observable<Specialty> {
+    return this.authHttp.get(`${this.endpoint}/${specialtyId}`)
+      .map(resp => <Specialty>resp.json());
+  }
+
+  /**
+   * 
+   * @param specialty 
+   */
   update(specialty:Specialty) : Observable<Specialty> {
     return this.authHttp.put(this.endpoint, specialty)
       .map(resp => <Specialty>resp.json());
   }
 
+  /**
+   * 
+   */
   delete(specialty:Specialty) : Observable<Response> {
     return this.authHttp.delete(this.endpoint + '/' + specialty.id);
   }

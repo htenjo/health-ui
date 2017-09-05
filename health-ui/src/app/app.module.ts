@@ -11,6 +11,7 @@ import { ROUTES } from './app.routes';
 import { AuthService, ACCESS_TOKEN_NAME } from './shared_services/auth/auth.service';
 import { CompanyService } from './company/company.service';
 import { SpecialtyService } from './specialty/specialty.service';
+import { SurveyTemplateService } from './survey-template/survey-template.service';
 
 import { CallbackComponent } from './shared_components/callback/callback.component';
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { CompanyComponent } from './company/company.component';
 import { SpecialtyComponent } from './specialty/specialty.component';
 import { HeaderComponent } from './shared_components/header/header.component';
 import { FooterComponent } from './shared_components/footer/footer.component';
+import { SurveyTemplateComponent } from './survey-template/survey-template.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -35,7 +37,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CompanyComponent,
     SpecialtyComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SurveyTemplateComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       deps: [Http, RequestOptions]
     },
     CompanyService,
-    SpecialtyService
+    SpecialtyService,
+    SurveyTemplateService
   ],
   bootstrap: [AppComponent]
 })
