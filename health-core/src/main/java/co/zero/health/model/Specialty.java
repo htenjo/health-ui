@@ -1,5 +1,6 @@
 package co.zero.health.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,8 +19,7 @@ import java.util.List;
 @Entity
 public class Specialty extends AbstractEntity {
     private String name;
+    @JsonIgnore
     @ManyToOne
     private Company company;
-    @OneToMany
-    private List<SurveyTemplate> surveys;
 }

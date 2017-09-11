@@ -48,7 +48,7 @@ public class CompanyController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Company> update(@RequestBody Company company) {
         if(company.getId() != null) {
-            Company persistedCompany = companyService.save(company);
+            Company persistedCompany = companyService.update(company);
             return new ResponseEntity<>(persistedCompany, HttpStatus.CREATED);
         }else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

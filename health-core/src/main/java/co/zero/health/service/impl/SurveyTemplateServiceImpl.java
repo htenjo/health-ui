@@ -44,6 +44,8 @@ public class SurveyTemplateServiceImpl implements SurveyTemplateService {
 
     @Override
     public SurveyTemplate update(SurveyTemplate surveyTemplate, Long specialtyId) {
+        //TODO: When model is modified the surveys could change to NOT SOLVED
+        //Maybe that could be handled with a PATCH ???
         return save(surveyTemplate, specialtyId);
     }
 

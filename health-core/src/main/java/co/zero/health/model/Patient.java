@@ -1,9 +1,11 @@
 package co.zero.health.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,10 +22,7 @@ public class Patient extends AbstractEntity {
     private String firstName;
     private String lastName;
     private String nuip;
-    @OneToMany
-    private List<Survey> basicInfo;
-    @OneToMany
-    private List<Event> events;
     @ManyToOne
+    @JsonIgnore
     private Company company;
 }

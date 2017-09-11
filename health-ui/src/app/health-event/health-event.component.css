@@ -1,0 +1,21 @@
+.survey-state {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+}
+
+.survey-not-started {
+    background-color: red;
+}
+
+.survey-started {
+    background-color: yellow;
+}
+
+.survey-solved {
+    background-color: green;
+}
+
+.survey-invalid-state {
+    background-color: darkgray;
+}

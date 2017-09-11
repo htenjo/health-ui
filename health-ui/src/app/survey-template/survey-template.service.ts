@@ -48,7 +48,7 @@ export class SurveyTemplateService {
   /**
    * 
    */
-  private buildApiUrl(specialtyId:number, templateId?:string) : string {
+  private buildApiUrl(specialtyId:number, templateId?:number) : string {
     return `${environment.apiBaseUrl}/specialty/${specialtyId}/surveyTemplate/${templateId || ''}`;
   }
 }

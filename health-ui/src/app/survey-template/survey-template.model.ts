@@ -1,9 +1,12 @@
+import {Specialty} from '../specialty/specialty.model';
+
 export class SurveyTemplate {
     constructor(
-        public id:string,
+        public id:number,
         public name:string,
         public jsSurvey:string,
-        public type:string
+        public type:string,
+        public specialty?:Specialty
     ){}
 
     static empty() : SurveyTemplate {

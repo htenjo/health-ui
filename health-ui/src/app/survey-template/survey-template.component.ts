@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
 
 import {SurveyTemplateService} from './survey-template.service';
 import {SpecialtyService} from '../specialty/specialty.service';
