@@ -12,6 +12,9 @@ import { AuthService, ACCESS_TOKEN_NAME } from './shared_services/auth/auth.serv
 import { CompanyService } from './company/company.service';
 import { SpecialtyService } from './specialty/specialty.service';
 import { SurveyTemplateService } from './survey-template/survey-template.service';
+import { SurveyService } from './survey/survey.service';
+import { PatientService } from './patient/patient.service';
+import { HealthEventService } from './health-event/health-event.service';
 
 import { CallbackComponent } from './shared_components/callback/callback.component';
 import { AppComponent } from './app.component';
@@ -21,6 +24,9 @@ import { SpecialtyComponent } from './specialty/specialty.component';
 import { HeaderComponent } from './shared_components/header/header.component';
 import { FooterComponent } from './shared_components/footer/footer.component';
 import { SurveyTemplateComponent } from './survey-template/survey-template.component';
+import { PatientComponent } from './patient/patient.component';
+import { HealthEventComponent } from './health-event/health-event.component';
+import { SurveyComponent } from './survey/survey.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -38,7 +44,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     SpecialtyComponent,
     HeaderComponent,
     FooterComponent,
-    SurveyTemplateComponent
+    SurveyTemplateComponent,
+    PatientComponent,
+    HealthEventComponent,
+    SurveyComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +64,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     },
     CompanyService,
     SpecialtyService,
-    SurveyTemplateService
+    SurveyTemplateService,
+    SurveyService,
+    PatientService,
+    HealthEventService
   ],
   bootstrap: [AppComponent]
 })

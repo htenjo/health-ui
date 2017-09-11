@@ -1,5 +1,6 @@
 package co.zero.health.model;
 
+import co.zero.health.common.Constant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -22,8 +23,21 @@ import java.time.LocalDate;
 public class Company extends AbstractEntity {
     private String name;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = Constant.ENTITY_GENERIC_DATE_PATTERN)
     @JsonSerialize(using =  LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate createdDate;
+
+    /**
+     *
+     */
+    public Company(){}
+
+    /**
+     * Constructor useful for services that just have the companyId.
+     * @param id Identifier of the company.
+     */
+    public Company(Long id) {
+        this.setId(id);
+    }
 }

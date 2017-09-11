@@ -10,6 +10,10 @@ public interface GenericCrud<T extends AbstractEntity> {
         throw new NotImplementedException();
     }
 
+    default Iterable<T> save(Iterable<T> entities){
+        throw new NotImplementedException();
+    }
+
     Optional<T> find(Long entityId);
 
     default T update(T entity){

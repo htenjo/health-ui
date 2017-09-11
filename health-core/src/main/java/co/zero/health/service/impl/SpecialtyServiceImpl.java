@@ -21,10 +21,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     @Override
     public Specialty save(Specialty specialty) {
-        Long companyId = SecurityUtil.getCompanyId();
-        Company company = new Company();
-        company.setId(companyId);
-        specialty.setCompany(company);
+        specialty.setCompany(SecurityUtil.getCompany());
         return specialtyRepository.save(specialty);
     }
 
