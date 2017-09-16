@@ -22,6 +22,15 @@ export class SurveyService {
   /**
    * 
    */
+  find(patientId:number, surveyId:number) : Observable<Survey> {
+    let url:string = this.buildApiUrl(patientId, surveyId);
+    return this.authHttp.get(url)
+      .map(resp => <Survey>resp.json());
+  }
+
+  /**
+   * 
+   */
   update(patientId:number, survey:Survey) : Observable<Survey> {
     let url:string = this.buildApiUrl(patientId);
     return this.authHttp.put(url, survey)
@@ -31,7 +40,7 @@ export class SurveyService {
   /**
    * 
    */
-  private buildApiUrl(patientId:number, surveyId?:string) : string {
+  private buildApiUrl(patientId:number, surveyId?:number) : string {
     return `${environment.apiBaseUrl}/patient/${patientId}/survey/${surveyId || ''}`;
   }
 }

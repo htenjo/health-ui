@@ -2,14 +2,10 @@ package co.zero.health.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by hernan on 6/30/17.
@@ -26,6 +22,7 @@ public class Survey extends AbstractEntity {
     @ManyToOne
     @JsonIgnore
     private Patient patient;
+    @Column(columnDefinition = "text")
     private String surveyAnswers;
     @Enumerated(EnumType.STRING)
     private SurveyState state;

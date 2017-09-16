@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by hernan on 6/30/17.
@@ -18,6 +15,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class SurveyTemplate extends AbstractEntity {
     private String name;
+    @Column(columnDefinition = "text")
     private String jsSurvey;
     @Enumerated(EnumType.STRING)
     private SurveyType type;
