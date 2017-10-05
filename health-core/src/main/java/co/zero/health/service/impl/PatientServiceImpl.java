@@ -6,6 +6,7 @@ import co.zero.health.model.Survey;
 import co.zero.health.model.SurveyType;
 import co.zero.health.persistence.PatientRepository;
 import co.zero.health.persistence.SurveyTemplateRepository;
+import co.zero.health.service.EventService;
 import co.zero.health.service.PatientService;
 import co.zero.health.service.SurveyService;
 import co.zero.health.util.SecurityUtil;
@@ -28,6 +29,8 @@ public class PatientServiceImpl implements PatientService {
     private SurveyTemplateRepository templateRepository;
     @Autowired
     private SurveyService surveyService;
+    @Autowired
+    private EventService eventService;
 
     @Transactional
     @Override
@@ -59,9 +62,12 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    @Transactional
     public void delete(Long patientId) {
         //TODO: Add security check agains the company
+        eventService.deleteAllByPatientId(patientId);
         patientRepository.delete(patientId);
+
     }
 
     @Override

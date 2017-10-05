@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface SurveyRepository extends PagingAndSortingRepository<Survey, Long> {
     List<Survey> findAllByPatientId(Long patientId);
+    void deleteAllByEventId(Long eventId);
+    void deleteAllByPatientId(Long patientId);
 }

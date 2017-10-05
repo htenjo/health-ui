@@ -13,8 +13,8 @@ import { Observable, Subscription } from 'rxjs/Rx';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent extends AbstractComponent {
-  private patientList:Patient[];
-  private selectedPatient:Patient;
+  patientList:Patient[];
+  selectedPatient:Patient;
   private editMode:boolean;
 
   constructor(private service:PatientService) { 
@@ -55,14 +55,16 @@ export class PatientComponent extends AbstractComponent {
   }
 
   onDelete(patient:Patient) :void {
-    this.handleRequest(
-      this.service.delete(patient),
-      resp => {
-        if(resp.ok) {
-          this.updateList();
+    if(confirm("Está seguro de eliminar el paciente?")) {
+      this.handleRequest(
+        this.service.delete(patient),
+        resp => {
+          if(resp.ok) {
+            this.updateList();
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   search(searchTerm:string){

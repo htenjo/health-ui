@@ -14,8 +14,8 @@ import {Specialty} from '../specialty/specialty.model';
   styleUrls: ['./survey-template.component.css']
 })
 export class SurveyTemplateComponent extends AbstractComponent {
-  private surveyList:SurveyTemplate[];
-  private selectedSurvey:SurveyTemplate;
+  surveyList:SurveyTemplate[];
+  selectedSurvey:SurveyTemplate;
   private editMode:boolean;
   private specialtyId:number;
 
@@ -73,14 +73,16 @@ export class SurveyTemplateComponent extends AbstractComponent {
   }
 
   onDelete(survey:SurveyTemplate) :void {
-    this.handleRequest(
-      this.surveyService.delete(this.specialtyId, survey),
-      resp => {
-        if(resp.ok) {
-          this.updateList(this.specialtyId);
+    if(confirm("Está seguro de eliminar la plantilla?")) {
+      this.handleRequest(
+        this.surveyService.delete(this.specialtyId, survey),
+        resp => {
+          if(resp.ok) {
+            this.updateList(this.specialtyId);
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   private updateList(specialtyId:number) { 

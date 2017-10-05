@@ -5,6 +5,7 @@ import co.zero.health.model.Patient;
 import co.zero.health.model.Survey;
 import co.zero.health.model.SurveyType;
 import co.zero.health.persistence.EventRepository;
+import co.zero.health.persistence.SurveyStatisticRepository;
 import co.zero.health.service.EventService;
 import co.zero.health.service.PatientService;
 import co.zero.health.service.SurveyService;
@@ -30,6 +31,8 @@ public class EventServiceImpl implements EventService {
     private SurveyTemplateService templateService;
     @Autowired
     private SurveyService surveyService;
+    @Autowired
+    private SurveyStatisticRepository statisticRepository;
 
     /**
      *
@@ -82,8 +85,16 @@ public class EventServiceImpl implements EventService {
      * @param eventId
      */
     @Override
+    @Transactional
     public void delete(Long eventId) {
+        surveyService.deleteAllByEventId(eventId);
         eventRepository.delete(eventId);
+    }
+
+    @Override
+    public void deleteAllByPatientId(Long patientId) {
+        surveyService.deleteAllByPatientId(patientId);
+        eventRepository.deleteAllByPatientId(patientId);
     }
 
     /**

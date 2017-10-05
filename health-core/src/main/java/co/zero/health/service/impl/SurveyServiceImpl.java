@@ -87,4 +87,18 @@ public class SurveyServiceImpl implements SurveyService {
     public void delete(Long surveyId) {
         surveyRepository.delete(surveyId);
     }
+
+    @Override
+    @Transactional
+    public void deleteAllByEventId(Long eventId) {
+        statisticRepository.deleteAllByEventId(eventId);
+        surveyRepository.deleteAllByEventId(eventId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllByPatientId(Long patientId) {
+        statisticRepository.deleteAllByPatientId(patientId);
+        surveyRepository.deleteAllByPatientId(patientId);
+    }
 }

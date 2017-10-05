@@ -1,70 +1,74 @@
 <div *ngIf="patient">
-  <p>Nombre Paciente: {{patient.firstName}} {{patient.lastName}}</p> 
-  <p>Id Paciente: {{patient.nuip}}</p> 
+  <h2 class="patient-nuip">Paciente: {{patient.firstName}} {{patient.lastName}} <span>({{patient.nuip}})</span></h2> 
 </div>
 <div>
-  <h2>Specialty Filter:</h2>
-  <select *ngIf="patient" [(ngModel)]="selectedSpecialty" (ngModelChange)="selectSpecialtyFilter($event)">
-    <option *ngFor="let specialty of specialties" 
-      [ngValue]="specialty">
-      {{specialty.name}}
-    </option>
-  </select>
+  <p>
+    Especialidad:
+    <select *ngIf="patient" [(ngModel)]="selectedSpecialty" (ngModelChange)="selectSpecialtyFilter($event)">
+      <option *ngFor="let specialty of specialties" [ngValue]="specialty">
+        {{specialty.name}}
+      </option>
+    </select>
+  </p>
 </div>
 
-<div>
-  <h3>Basic Surveys</h3>
+<div class="table-event-wrapper">
+  <h3>Información Básica</h3>
   <table class="table table-striped table-condensed" *ngIf="patient">
     <tr>
-      <th>#</th>
-      <th>Nombre</th>
-      <th>Estado</th>
+      <th class="col-xs-2 col-sm-1">#</th>
+      <th class="col-xs-9 col-sm-10">Nombre</th>
+      <th class="col-xs-1 col-sm-1 text-center">Estado</th>
     </tr>
 
     <tr *ngFor="let survey of filteredBasicSurveys">
       <td>{{survey.id}}</td>
       <td>
-        <a class="btn btn-primary btn-xs" [routerLink]="['/patient', patient.id, 'survey', survey.id]">
-          <i class="fa fa-pencil" aria-hidden="true"></i>  {{survey.template.name}}
-        </a>
+        <a class="btn-link" [routerLink]="['/patient', patient.id, 'survey', survey.id]">{{survey.template.name}}</a>
       </td>
-      <td>
+      <td class="text-center">
         <div class="survey-state {{getSurveyStateStyle(survey.state)}}"></div>
       </td>
     </tr>
   </table>
 </div>
-<div>
-  <h3>Events with related surveys</h3>
-  <div>
-    <div>
-      <button class="btn btn-success" type="button" data-toggle="modal" data-target="#eventForm" (click)="onSelectNewEvent()">
-        Crear Evento
-      </button>
-    </div>
-    <div *ngFor="let event of filteredEvents">
-      {{event.id}} - {{event.name}} - {{event.createdDate}}
 
-      <table class="table table-striped table-condensed">
-          <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Estado</th>
-          </tr>
-      
-          <tr *ngFor="let survey of event.surveys">
-            <td>{{survey.id}}</td>
-            <td>
-                <a class="btn btn-primary btn-xs" [routerLink]="['/patient', patient.id, 'survey', survey.id]">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>  {{survey.template.name}}
-                </a>
-            </td>
-            <td>
-              <div class="survey-state {{getSurveyStateStyle(survey.state)}}"></div>
-            </td>
-          </tr>
-        </table>
-    </div>
+<div>
+  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#eventForm" (click)="onSelectNewEvent()">
+    Crear Evento
+  </button>
+</div>
+
+<div class="table-event-wrapper" *ngIf="filteredEvents && filteredEvents.length > 0">
+  <h3>Información Específica</h3>
+  <div *ngFor="let event of filteredEvents">
+    <p>
+        <b>Evento:</b> {{event.name}} ({{event.createdDate}})
+        <span class="event-header">
+            <button (click)="onDeleteEvent(event)">
+                <i class="fa fa-trash" aria-hidden="true" title="Eliminar Evento"></i>
+            </button>
+        </span>
+        
+    </p>
+    
+    <table class="table table-striped table-condensed">
+        <tr>
+            <th class="col-xs-2 col-sm-1">#</th>
+            <th class="col-xs-9 col-sm-10">Nombre</th>
+            <th class="col-xs-1 col-sm-1 text-center">Estado</th>
+        </tr>
+    
+        <tr *ngFor="let survey of event.surveys">
+          <td>{{survey.id}}</td>
+          <td>
+              <a class="btn-link" *ngIf="patient" [routerLink]="['/patient', patient.id, 'survey', survey.id]">{{survey.template.name}}</a>
+          </td>
+          <td class="text-center">
+            <div class="survey-state {{getSurveyStateStyle(survey.state)}}"></div>
+          </td>
+        </tr>
+      </table>
   </div>
 </div>
 

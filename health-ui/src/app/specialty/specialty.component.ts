@@ -13,8 +13,8 @@ import { Observable, Subscription } from 'rxjs/Rx';
   styleUrls: ['./specialty.component.css']
 })
 export class SpecialtyComponent extends AbstractComponent {
-  private specialtyList:Specialty[];
-  private selectedSpecialty:Specialty;
+  specialtyList:Specialty[];
+  selectedSpecialty:Specialty;
   private editMode:boolean;
 
   constructor(private service:SpecialtyService) { 
@@ -55,14 +55,16 @@ export class SpecialtyComponent extends AbstractComponent {
   }
 
   onDelete(specialty:Specialty) :void {
-    this.handleRequest(
-      this.service.delete(specialty),
-      resp => {
-        if(resp.ok) {
-          this.updateList();
+    if(confirm("Está seguro de eliminar la especialidad?")) {
+      this.handleRequest(
+        this.service.delete(specialty),
+        resp => {
+          if(resp.ok) {
+            this.updateList();
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   private updateList() : void {

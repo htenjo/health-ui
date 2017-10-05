@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface SurveyService extends GenericCrud<Survey> {
     List<Survey> findAllByPatient(Long patientId);
+    void deleteAllByEventId(Long eventId);
+    void deleteAllByPatientId(Long patientId);
 }

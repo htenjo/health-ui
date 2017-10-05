@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import {AbstractComponent} from '../shared_components/abstractComponent';
-import {Patient} from '../patient/patient.model';
-import {Specialty} from '../specialty/specialty.model';
-import {Survey} from '../survey/survey.model';
-import {HealthEvent} from './health-event.model';
+import { AbstractComponent } from '../shared_components/abstractComponent';
+import { Patient } from '../patient/patient.model';
+import { Specialty } from '../specialty/specialty.model';
+import { Survey } from '../survey/survey.model';
+import { HealthEvent } from './health-event.model';
 
-import {PatientService} from '../patient/patient.service';
-import {HealthEventService} from './health-event.service';
-import {SurveyService} from '../survey/survey.service';
+import { PatientService } from '../patient/patient.service';
+import { HealthEventService } from './health-event.service';
+import { SurveyService } from '../survey/survey.service';
 
 @Component({
   selector: 'app-health-event',
@@ -18,32 +18,34 @@ import {SurveyService} from '../survey/survey.service';
   styleUrls: ['./health-event.component.css']
 })
 export class HealthEventComponent extends AbstractComponent {
-  private patient:Patient;
-  private surveys:Survey[];
-  private specialties:Specialty[];
-  private selectedSpecialty:Specialty;
-  private filteredBasicSurveys:Survey[];
-  private filteredEvents:HealthEvent[];
-  private newEvent: HealthEvent;
+  patient: Patient;
+  filteredEvents: HealthEvent[];
+  newEvent: HealthEvent;
+  selectedSpecialty: Specialty;
+  private surveys: Survey[];
+  private specialties: Specialty[];
+  private filteredBasicSurveys: Survey[];
+
+
 
   constructor(
     private route: ActivatedRoute,
-    private patientService:PatientService,
+    private patientService: PatientService,
     private healthEventService: HealthEventService,
-    private surveyService:SurveyService) {
+    private surveyService: SurveyService) {
     super();
-   }
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-        let patientId = params['patientId'];
-        this.buildPatientInfo(patientId);
-        this.buildSurveysInfo(patientId);
-      }
+      let patientId = params['patientId'];
+      this.buildPatientInfo(patientId);
+      this.buildSurveysInfo(patientId);
+    }
     );
   }
 
-  private buildPatientInfo(patientId:number) : void {
+  private buildPatientInfo(patientId: number): void {
     this.handleRequest(
       this.patientService.find(patientId), patient => {
         this.patient = patient;
@@ -51,7 +53,7 @@ export class HealthEventComponent extends AbstractComponent {
     );
   }
 
-  private buildSurveysInfo(patientId:number) : void{
+  private buildSurveysInfo(patientId: number): void {
     this.handleRequest(
       this.surveyService.list(patientId), surveys => {
         this.surveys = surveys;
@@ -62,15 +64,17 @@ export class HealthEventComponent extends AbstractComponent {
     );
   }
 
-  private buildSpecialtyInfo(surveys:Survey[]) {
+  private buildSpecialtyInfo(surveys: Survey[]) {
     this.specialties = this.buildSpecialtiesFilter(surveys);
 
-    if(this.specialties.length > 0) {
+    if (this.specialties.length > 0 && !this.selectedSpecialty) {
       this.selectedSpecialty = this.specialties[0];
     }
+
+    console.log(this.selectedSpecialty);
   }
 
-  private buildSpecialtiesFilter(surveys:Survey[]) : Specialty[]{
+  private buildSpecialtiesFilter(surveys: Survey[]): Specialty[] {
     let uniqueSpecialties = new Map<number, Specialty>();
     surveys
       .map(survey => survey.template.specialty)
@@ -78,23 +82,23 @@ export class HealthEventComponent extends AbstractComponent {
     return Array.from(uniqueSpecialties.values());
   }
 
-  private buildFilteredBasicSurveys(surveys:Survey[]) : Survey[] {
-    return surveys.filter(survey => 
-      !survey.event 
+  private buildFilteredBasicSurveys(surveys: Survey[]): Survey[] {
+    return surveys.filter(survey =>
+      !survey.event
       && survey.template.type === "BASIC_INFO"
       && survey.template.specialty.id === this.selectedSpecialty.id
     );
   }
 
-  private buildFilteredEvents(surveys:Survey[]) : HealthEvent[] {
+  private buildFilteredEvents(surveys: Survey[]): HealthEvent[] {
     let uniqueEvents = new Map<number, HealthEvent>();
     surveys
-      .filter(survey => 
+      .filter(survey =>
         survey.event
         && survey.template.specialty.id === this.selectedSpecialty.id
         && survey.template.type === "SPECIALTY_INFO")
       .map(survey => {
-        let healthEvent:HealthEvent = survey.event;
+        let healthEvent: HealthEvent = survey.event;
         healthEvent.surveys = [survey];
         return healthEvent;
       })
@@ -108,13 +112,13 @@ export class HealthEventComponent extends AbstractComponent {
     return Array.from(uniqueEvents.values());
   }
 
-  selectSpecialtyFilter(selectedSpecialty:Specialty){
+  selectSpecialtyFilter(selectedSpecialty: Specialty) {
     this.selectedSpecialty = selectedSpecialty;
     this.filteredBasicSurveys = this.buildFilteredBasicSurveys(this.surveys);
     this.filteredEvents = this.buildFilteredEvents(this.surveys);
   }
 
-  onSelectNewEvent() : void {
+  onSelectNewEvent(): void {
     this.newEvent = HealthEvent.empty();
   }
 
@@ -128,8 +132,22 @@ export class HealthEventComponent extends AbstractComponent {
     );
   }
 
-  getSurveyStateStyle(state:string) {
-    switch(state) {
+  onDeleteEvent(event: HealthEvent) {
+    if (confirm("Está seguro de eliminar el evento?")) {
+      this.handleRequest(
+        this.healthEventService.delete(this.patient.id, event),
+        resp => {
+          if (resp.ok) {
+            this.buildSurveysInfo(this.patient.id);
+          }
+        },
+        error => console.log("Error deletingEvent ", error)
+      );
+    }
+  }
+
+  getSurveyStateStyle(state: string) {
+    switch (state) {
       case 'NOT_STARTED':
         return 'survey-not-started';
       case 'STARTED':
