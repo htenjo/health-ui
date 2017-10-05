@@ -19,6 +19,7 @@ public class SurveyUtils {
      * @return A map object with key=questionName & value=questionAnswer.
      * @throws IllegalArgumentException If survey answers doesn't represent a valid json
      */
+    @SuppressWarnings("unchecked")
     public static Map<String, Object> parseSurveyAnswers(String jsonAnswers) throws IllegalArgumentException {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -61,7 +62,7 @@ public class SurveyUtils {
      * @param answers Map with the survey answers
      * @return True if all answers are part of the survey (answer key is a question in the survey)s
      */
-    public static boolean validateSurveyAnswers(SurveyJs model, Map<String, Object> answers) {
+    private static boolean validateSurveyAnswers(SurveyJs model, Map<String, Object> answers) {
         //Get all question names from the survey model
         Set<String> questionNames = getQuestionNamesFromSurveyModel(model);
         //Filter answers that are not present in the model

@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth-info';
 import { Router } from '@angular/router';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import * as auth0 from 'auth0-js';
 
-export const ACCESS_TOKEN_NAME:string = "access_token";
-export const ID_TOKEN_NAME:string = "id_token";
-const EXPIRE_TOKEN_NAME:string = "expires_at";
+export const ACCESS_TOKEN_NAME: string = "access_token";
+export const ID_TOKEN_NAME: string = "id_token";
+
+const EXPIRE_TOKEN_NAME: string = "expires_at";
+const DEFAULT_HOME_URL = '';
 
 @Injectable()
 export class AuthService {
+  private jwtHelper: JwtHelper = new JwtHelper();
+
   //Helper that handle the Auth process with Auth0 provider
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,
@@ -18,6 +23,7 @@ export class AuthService {
     redirectUri: AUTH_CONFIG.callbackURL,
     scope: `openid`
   });
+
   //Object with the user information from Auth0
   userProfile: any;
 
@@ -43,10 +49,10 @@ export class AuthService {
         window.location.hash = '';
         this.setSession(authResult);
         //this.setProfile(authResult);
-        this.router.navigate(['/home']);
+        this.router.navigate([DEFAULT_HOME_URL]);
       } else if (err) {
-        this.router.navigate(['/home']);
         console.log(err);
+        this.router.navigate(['error']);
       }
     });
   }
@@ -59,17 +65,50 @@ export class AuthService {
     localStorage.removeItem(ACCESS_TOKEN_NAME);
     localStorage.removeItem(ID_TOKEN_NAME);
     localStorage.removeItem(EXPIRE_TOKEN_NAME);
-    // Go back to the home route
-    this.router.navigate(['/']);
+    this.router.navigate(['callback']);
+    this.login();
   }
 
   /**
    * 
    */
   public isAuthenticated(): boolean {
-    // Check whether the current time is past the access token's expiry time
-    const expiresAt = JSON.parse(localStorage.getItem(EXPIRE_TOKEN_NAME));
-    return new Date().getTime() < expiresAt;
+    return tokenNotExpired(ACCESS_TOKEN_NAME);
+  }
+
+  /**
+   * 
+   */
+  public isCurrentUserRoot(): boolean {
+    return this.logedUserHasScope('read:company');
+  }
+
+  /**
+   * 
+   */
+  public isCurrentUserAdmin(): boolean {
+    return this.isCurrentUserRoot() || this.logedUserHasScope('read:specialty');
+  }
+
+  /**
+   * 
+   */
+  public isCurrentUserOperator(): boolean {
+    return this.isCurrentUserAdmin() || this.logedUserHasScope('read:patient');
+  }
+
+  /**
+   * 
+   */
+  private logedUserHasScope(scopeToValidate:string) : boolean {
+    let token: string = localStorage.getItem(ACCESS_TOKEN_NAME);
+    
+    if (token) {
+      let scopes: string = this.jwtHelper.decodeToken(token).scope;
+      return scopes.indexOf(scopeToValidate) > -1;
+    }
+
+    return false;
   }
 
   /**
@@ -82,11 +121,11 @@ export class AuthService {
     localStorage.setItem(ID_TOKEN_NAME, authResult.idToken);
     localStorage.setItem(EXPIRE_TOKEN_NAME, expiresAt);
   }
-  
+
   /**
    * 
    */
-  private setProfile(authResult) : void {
+  private setProfile(authResult): void {
     // Use access token to retrieve user's profile and set session
     this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {

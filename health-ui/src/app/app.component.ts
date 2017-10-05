@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from './shared_services/auth/auth.service';
 import { HeaderComponent } from './shared_components/header/header.component';
 import { FooterComponent } from './shared_components/footer/footer.component';
+import { AuthService } from './shared_services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,5 @@ import { FooterComponent } from './shared_components/footer/footer.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
-
-  constructor(public auth: AuthService) {
-    auth.handleAuthentication();
-  }
+  constructor(public authService:AuthService) {}
 }

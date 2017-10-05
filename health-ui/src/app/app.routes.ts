@@ -7,16 +7,19 @@ import { SurveyTemplateComponent } from './survey-template/survey-template.compo
 import { CallbackComponent } from './shared_components/callback/callback.component';
 import { HealthEventComponent } from './health-event/health-event.component';
 import { SurveyComponent } from './survey/survey.component';
+import { ErrorPageComponent } from './shared_components/error-page/error-page.component';
+
+import { AuthGuard } from './shared_services/guards/auth-guard.service';
 
 export const ROUTES: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'company', component: CompanyComponent},
-  { path: 'specialty', component: SpecialtyComponent},
-  { path: 'specialty/:specialtyId/survey-template', component: SurveyTemplateComponent},
-  { path: 'patient', component: PatientComponent},
-  { path: 'patient/:patientId/event', component: HealthEventComponent},
-  { path: 'patient/:patientId/survey/:surveyId', component: SurveyComponent},
+  { path: '', component: HomeComponent, canActivate:[AuthGuard]},
+  { path: 'company', component: CompanyComponent, canActivate:[AuthGuard]},
+  { path: 'specialty', component: SpecialtyComponent, canActivate:[AuthGuard]},
+  { path: 'specialty/:specialtyId/survey-template', component: SurveyTemplateComponent, canActivate:[AuthGuard]},
+  { path: 'patient', component: PatientComponent, canActivate:[AuthGuard]},
+  { path: 'patient/:patientId/event', component: HealthEventComponent, canActivate:[AuthGuard]},
+  { path: 'patient/:patientId/survey/:surveyId', component: SurveyComponent, canActivate:[AuthGuard]},
   { path: 'callback', component: CallbackComponent},
+  { path: 'error', component: ErrorPageComponent},
   { path: '**', redirectTo: '' }
 ];

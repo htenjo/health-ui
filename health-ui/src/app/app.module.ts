@@ -16,6 +16,8 @@ import { SurveyService } from './survey/survey.service';
 import { PatientService } from './patient/patient.service';
 import { HealthEventService } from './health-event/health-event.service';
 
+import { AuthGuard } from './shared_services/guards/auth-guard.service';
+
 import { CallbackComponent } from './shared_components/callback/callback.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -27,6 +29,7 @@ import { SurveyTemplateComponent } from './survey-template/survey-template.compo
 import { PatientComponent } from './patient/patient.component';
 import { HealthEventComponent } from './health-event/health-event.component';
 import { SurveyComponent } from './survey/survey.component';
+import { ErrorPageComponent } from './shared_components/error-page/error-page.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -47,7 +50,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     SurveyTemplateComponent,
     PatientComponent,
     HealthEventComponent,
-    SurveyComponent
+    SurveyComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     SurveyTemplateService,
     SurveyService,
     PatientService,
-    HealthEventService
+    HealthEventService,
+
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

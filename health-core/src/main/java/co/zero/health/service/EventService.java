@@ -11,4 +11,5 @@ public interface EventService extends GenericCrud<Event>{
     List<Event> findAllByPatientId(Long patientId);
     Event save(Long patientId, Event event);
     Event update(Long patientId, Event event);
+    void deleteAllByPatientId(Long patientId);
 }

@@ -9,8 +9,8 @@ import { CompanyService } from './company.service';
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
-  private companyList:Company[];
-  private selectedCompany:Company;
+  companyList:Company[];
+  selectedCompany:Company;
   private editMode:boolean;
 
   constructor(private service:CompanyService) { }
@@ -49,14 +49,16 @@ export class CompanyComponent implements OnInit {
   }
 
   onDelete(company:Company) :void {
-    this.service.delete(company).subscribe(
-      resp => {
-        if(resp.ok) {
-          this.updateList();
-        }
-      },
-      error => console.log("Error deletingCompany ", error)
-    );
+    if(confirm("Está seguro de eliminar la empresa?")) {
+      this.service.delete(company).subscribe(
+        resp => {
+          if(resp.ok) {
+            this.updateList();
+          }
+        },
+        error => alert("No es posible eliminar la empresa.")
+      );
+    }
   }
 
   private updateList() : void {
