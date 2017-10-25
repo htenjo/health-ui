@@ -97,6 +97,10 @@ export class AuthService {
     return this.isCurrentUserAdmin() || this.logedUserHasScope('read:patient');
   }
 
+  public canCreatePatient() : boolean {
+    return this.logedUserHasScope('create:patient');
+  }
+
   /**
    * 
    */

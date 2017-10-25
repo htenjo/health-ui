@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {AbstractComponent} from '../shared_components/abstractComponent';
 import {Patient} from './patient.model';
 import {PatientService} from './patient.service';
-
+import { AuthService } from '../shared_services/auth/auth.service';
 
 import { Observable, Subscription } from 'rxjs/Rx';
  
@@ -17,12 +17,14 @@ export class PatientComponent extends AbstractComponent {
   selectedPatient:Patient;
   private editMode:boolean;
 
-  constructor(private service:PatientService) { 
+  constructor(
+    private service:PatientService, 
+    public auth: AuthService) { 
     super();
   }
 
   ngOnInit() {
-    this.updateList();
+    //this.updateList();
   }
 
   onSelectDetail(patient:Patient) : void {
@@ -68,18 +70,18 @@ export class PatientComponent extends AbstractComponent {
   }
 
   search(searchTerm:string){
-    this.handleRequest(
-      this.service.search(searchTerm),
-      resp => {
-       this.patientList = [resp];
-      }
-    );
+    if (searchTerm) {
+      this.handleRequest(
+        this.service.search(searchTerm),
+        resp => {
+         this.patientList = [resp];
+        }
+      );
+    } else {
+      this.patientList = [];
+    }
   }
-
-  cleanSearch() {
-    this.updateList();
-  }
-
+  
   private updateList() : void {
     this.handleRequest(
       this.service.list(),

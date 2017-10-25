@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:9000'
+  apiBaseUrl: 'http://localhost:9000',
+  callbackUrl: 'http://localhost:4200/callback'
 };
