@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { Router } from '@angular/router';
 
 import {AbstractComponent} from '../shared_components/abstractComponent';
 import {Patient} from './patient.model';
@@ -13,12 +14,13 @@ import { Observable, Subscription } from 'rxjs/Rx';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent extends AbstractComponent {
-  patientList:Patient[];
+  patientList:Patient[] = [];
   selectedPatient:Patient;
   private editMode:boolean;
 
   constructor(
-    private service:PatientService, 
+    private service:PatientService,
+    private router: Router,
     public auth: AuthService) { 
     super();
   }
@@ -43,7 +45,8 @@ export class PatientComponent extends AbstractComponent {
         patient => {
           this.selectedPatient = null;
           this.updateList();
-        }
+        },
+        error => alert('Error al actualizar el paciente.')
       );
     } else {
       this.handleRequest(
@@ -51,7 +54,10 @@ export class PatientComponent extends AbstractComponent {
         patient => {
           this.selectedPatient = patient;
           this.patientList.push(patient);
-        }
+          this.router.navigate(['/patient', patient.id, 'event'])
+          .catch(error => console.log('Error redirectign to event page'));
+        },
+        error => alert("El paciente ya existe.")
       );
     }
   }
