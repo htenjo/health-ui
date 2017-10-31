@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { environment } from '../../environments/environment';
-import { Specialty } from './specialty.model';
+import { Specialty, SpecialtyStatistic } from './specialty.model';
 
 
 @Injectable()
@@ -54,5 +54,11 @@ export class SpecialtyService {
    */
   delete(specialty:Specialty) : Observable<Response> {
     return this.authHttp.delete(this.endpoint + '/' + specialty.id);
+  }
+
+  getStatistics(specialty:Specialty) : Observable<SpecialtyStatistic[]> {
+    return this.authHttp
+      .get(`${this.endpoint}/${specialty.id}/statistics`)
+      .map(resp => resp.json());
   }
 }
