@@ -55,10 +55,4 @@ export class SpecialtyService {
   delete(specialty:Specialty) : Observable<Response> {
     return this.authHttp.delete(this.endpoint + '/' + specialty.id);
   }
-
-  getStatistics(specialty:Specialty) : Observable<SpecialtyStatistic[]> {
-    return this.authHttp
-      .get(`${this.endpoint}/${specialty.id}/statistics`)
-      .map(resp => resp.json());
-  }
 }

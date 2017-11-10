@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Response } from '@angular/http';
+import { Headers, Response, ResponseContentType } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Rx';
 
@@ -43,6 +43,21 @@ export class SurveyTemplateService {
   delete(specialtyId:number, surveyTemplate: SurveyTemplate) : Observable<Response> {
     let url:string = this.buildApiUrl(specialtyId, surveyTemplate.id);
     return this.authHttp.delete(url);
+  }
+
+
+  getStatistics(template:SurveyTemplate) : Observable<Response> {
+    let url:string = this.buildApiUrl(template.specialty.id, template.id);
+    return this.authHttp
+      .get(`${url}/statistics`, {responseType:ResponseContentType.Blob});
+      //.map(resp => resp.json());
+  }
+
+  uploadInfo(template:SurveyTemplate, info:string) : Observable<Response>{
+    let url:string = this.buildApiUrl(template.specialty.id, template.id);
+    return this.authHttp
+      .post(`${url}/upload`, info)
+      .map(resp => resp.json());
   }
 
   /**

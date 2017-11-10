@@ -6,7 +6,6 @@ import {SpecialtyService} from './specialty.service';
 
 
 import { Observable, Subscription } from 'rxjs/Rx';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
  
 @Component({
   selector: 'specialty',
@@ -73,22 +72,6 @@ export class SpecialtyComponent extends AbstractComponent {
         }
       );
     }
-  }
-
-  downloadStatistics(specialty:Specialty) {
-    var options = {
-      showLabels: true,
-      useBom: false,
-      headers:['PacienteID', 'Respuestas']
-    };
-  
-    this.handleRequest(
-      this.service.getStatistics(specialty),
-      resp => { 
-        new Angular2Csv(resp, "statistics", options)
-      }
-    );
-    
   }
 
   private updateList() : void {

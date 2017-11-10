@@ -19,6 +19,14 @@
             <td>{{survey.name}}</td>
             <td>{{survey.type}}</td>
             <td>
+              <button class="btn btn-primary btn-xs" type="button" (click)="downloadStatistics(survey)">
+                <i class="fa fa-download" aria-hidden="true"></i> Download
+              </button>
+
+              <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#uploadForm" (click)="onSelectDetail(survey)">
+                <i class="fa fa-upload" aria-hidden="true"></i> Load
+              </a>
+
               <button class="btn btn-primary btn-xs" type="button" data-toggle="modal" data-target="#surveyTemplateForm" (click)="onSelectDetail(survey)">
                 <i class="fa fa-pencil" aria-hidden="true"></i> Editar
               </button>
@@ -64,6 +72,31 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSave()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload CSV form -->
+<div class="modal fade" id="uploadForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Upload CSV info</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="fileField"></label>
+            <input type="file" id="fileField" name="fileField" required="true" #fileUploadField
+                class="form-control" placeholder="Upload csv file...">                
+          </div>
+          <div class="form-group text-right">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="uploadFileCsv()">Cargar archivo</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
