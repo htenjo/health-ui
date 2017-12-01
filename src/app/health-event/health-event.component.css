@@ -1,20 +1,24 @@
 .survey-state {
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
+    width: 100%;
+    height: 50px;
 }
 
 .survey-not-started {
-    background-color: red;
+    color: white;
+    background-color: rgb(172, 91, 91);
+    font-weight: bold;
 }
 
 .survey-started {
-    background-color: yellow;
+    color: black;
+    background-color: #edb900;
+    font-weight: bold;
 }
 
 .survey-solved {
-    background-color: green;
+    color: white;
+    background-color: rgb(105, 158, 105);
+    font-weight: bold;
 }
 
 .survey-invalid-state {
@@ -22,13 +26,25 @@
 }
 
 .table-event-wrapper {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
-.table-event-wrapper .event-header{
+.table-event-wrapper .event-header {
     margin-right: 20px;
     font-size: 1.5em;
     float: right;
+}
+
+.table-event-wrapper .event-group {
+    background-color: rgb(247, 247, 247);
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.table-event-wrapper .event-group p {
+    font-size: 0.8em;
+}
+.table-event-wrapper button {
+    margin-bottom: 10px;
 }
 
 .table-event-wrapper .fa-trash {

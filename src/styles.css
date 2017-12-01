@@ -35,3 +35,6 @@ app-root {
 	display: none;
 }
 /** ========================== CRUD CSS - END ==================== */ 
+.btn-create, .btn-success {
+	background-color: #56c4b8;
+}

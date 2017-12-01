@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { environment } from '../../environments/environment';
-import { Specialty } from './specialty.model';
+import { Specialty, SpecialtyStatistic } from './specialty.model';
 
 
 @Injectable()

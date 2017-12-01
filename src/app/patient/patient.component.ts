@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
+import { Router } from '@angular/router';
 
 import {AbstractComponent} from '../shared_components/abstractComponent';
 import {Patient} from './patient.model';
 import {PatientService} from './patient.service';
-
+import { AuthService } from '../shared_services/auth/auth.service';
 
 import { Observable, Subscription } from 'rxjs/Rx';
  
@@ -13,16 +14,19 @@ import { Observable, Subscription } from 'rxjs/Rx';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent extends AbstractComponent {
-  patientList:Patient[];
+  patientList:Patient[] = [];
   selectedPatient:Patient;
   private editMode:boolean;
 
-  constructor(private service:PatientService) { 
+  constructor(
+    private service:PatientService,
+    private router: Router,
+    public auth: AuthService) { 
     super();
   }
 
   ngOnInit() {
-    this.updateList();
+    //this.updateList();
   }
 
   onSelectDetail(patient:Patient) : void {
@@ -41,7 +45,8 @@ export class PatientComponent extends AbstractComponent {
         patient => {
           this.selectedPatient = null;
           this.updateList();
-        }
+        },
+        error => alert('Error al actualizar el paciente.')
       );
     } else {
       this.handleRequest(
@@ -49,7 +54,10 @@ export class PatientComponent extends AbstractComponent {
         patient => {
           this.selectedPatient = patient;
           this.patientList.push(patient);
-        }
+          this.router.navigate(['/patient', patient.id, 'event'])
+          .catch(error => console.log('Error redirectign to event page'));
+        },
+        error => alert("El paciente ya existe.")
       );
     }
   }
@@ -68,18 +76,18 @@ export class PatientComponent extends AbstractComponent {
   }
 
   search(searchTerm:string){
-    this.handleRequest(
-      this.service.search(searchTerm),
-      resp => {
-       this.patientList = [resp];
-      }
-    );
+    if (searchTerm) {
+      this.handleRequest(
+        this.service.search(searchTerm),
+        resp => {
+         this.patientList = [resp];
+        }
+      );
+    } else {
+      this.patientList = [];
+    }
   }
-
-  cleanSearch() {
-    this.updateList();
-  }
-
+  
   private updateList() : void {
     this.handleRequest(
       this.service.list(),

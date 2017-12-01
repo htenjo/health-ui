@@ -62,6 +62,13 @@ export class SpecialtyComponent extends AbstractComponent {
           if(resp.ok) {
             this.updateList();
           }
+        },
+        error => {
+          if(error.status == 412) {
+            alert("La especialidad tiene dependencias que deben ser eliminadas primero.");
+          }else {
+            console.log(error);
+          }
         }
       );
     }

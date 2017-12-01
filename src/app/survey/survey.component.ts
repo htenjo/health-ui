@@ -64,7 +64,6 @@ export class SurveyComponent extends AbstractComponent implements OnInit {
       this.surveyService.update(this.patientId, this.survey),
       survey => {
         this.router.navigate([`/patient/${this.patientId}/event`]);
-        alert("Información guardada");
         this.surveyCompleted = false;
       },
       error => alert("Ha ocurrido un error al guardar la información")
@@ -75,7 +74,6 @@ export class SurveyComponent extends AbstractComponent implements OnInit {
   savePartialAnswers() {
     let surveyAnswers: string = JSON.stringify(this.surveyModel.data);
     this.survey.surveyAnswers = surveyAnswers;
-    
     this.handleRequest(
       this.surveyService.update(this.patientId, this.survey),
       survey => alert("Información guardada"),

@@ -23,7 +23,7 @@ export class HealthEventComponent extends AbstractComponent {
   newEvent: HealthEvent;
   selectedSpecialty: Specialty;
   private surveys: Survey[];
-  private specialties: Specialty[];
+  specialties: Specialty[];
   private filteredBasicSurveys: Survey[];
 
 
@@ -70,8 +70,6 @@ export class HealthEventComponent extends AbstractComponent {
     if (this.specialties.length > 0 && !this.selectedSpecialty) {
       this.selectedSpecialty = this.specialties[0];
     }
-
-    console.log(this.selectedSpecialty);
   }
 
   private buildSpecialtiesFilter(surveys: Survey[]): Specialty[] {
@@ -157,5 +155,17 @@ export class HealthEventComponent extends AbstractComponent {
       default:
         return 'survey-invalid-state';
     }
+  }
+
+  hasBasicSurveysFinished(): boolean {
+    if (this.filteredBasicSurveys) {
+      let pendingSurvey:Survey = this.filteredBasicSurveys.find(survey => survey.state != "FINISHED");
+
+       if(!pendingSurvey) {
+         return true;
+       }
+    }
+
+    return false;
   }
 }

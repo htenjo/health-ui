@@ -10,6 +10,6 @@ export class SurveyTemplate {
     ){}
 
     static empty() : SurveyTemplate {
-        return new SurveyTemplate(null, '', '', '');
+        return new SurveyTemplate(null, '', '', 'BASIC_INFO');
     }
 }

@@ -1,11 +1,35 @@
 
 /** ========================== HEADER CSS - BEGIN ==================== */ 
 .page-header {
-	margin-top: 10px;
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
 }
-
+.page-header .navbar-brand,
+.page-header .navbar-collapse,
+.page-header .navbar-collapse a {
+	color: white;
+}
 .page-header .navbar-brand i {
 	color: white;
 	font-size: 1em;
+}
+.page-header .navbar-collapse {
+	border-color: white;
+}
+.navbar-inverse {
+	background-color: #56c4b8;
+	border:none;
+}
+
+.navbar-toggle {
+	border: none;
+}
+
+.navbar-toggle:hover {
+	background-color: #33776f;
+}
+.navbar-toggle:focus {
+	background-color: #c3d612;
 }
 /** ========================== HEADER CSS - END ==================== */ 
